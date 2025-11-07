@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  </head>
+<body>
+  <h1><%= pageTitle %></h1>
+
+  <hr>
+
+  <h2>Thêm bộ đề mới</h2>
+  <form action="/admin/quizzes" method="POST">
+    <div>
+      <label for="title">Tên bộ đề:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+      <label for="subject">Môn học:</label>
+      <input type="text" id="subject" name="subject" required>
+    </div>
+    <button type="submit">Tạo mới</button>
+  </form>
+
+  <hr>
+
+  <h2>Danh sách bộ đề</h2>
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên bộ đề</th>
+        <th>Môn học</th>
+        <th>Số câu hỏi</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% quizzes.forEach(quiz => { %>
+        <tr>
+          <td><%= quiz.id %></td>
+          <td><%= quiz.title %></td>
+          <td><%= quiz.subject %></td>
+          <td><%= quiz._count.questions %></td>
+          <td>
+            <a href="/admin/quizzes/<%= quiz.id %>/edit">Sửa</a> |
+            <a href="/admin/quizzes/<%= quiz.id %>/delete">Xóa</a>
+          </td>
+        </tr>
+      <% }) %>
+
+      <% if (quizzes.length === 0) { %>
+        <tr>
+          <td colspan="5" style="text-align: center;">Chưa có bộ đề nào.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+</body>
+</html>

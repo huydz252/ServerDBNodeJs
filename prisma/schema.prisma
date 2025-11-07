@@ -1,0 +1,60 @@
+// File: prisma/schema.prisma
+
+// 1. Cấu hình "đầu vào" (Datasource)
+//    Chúng ta báo cho Prisma biết mình đang dùng SQLite
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") // Lấy đường dẫn từ file .env
+}
+
+// 2. Cấu hình "đầu ra" (Generator)
+//    Báo cho Prisma tạo ra Prisma Client (dùng trong code Node.js)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 3. Định nghĩa các bảng CSDL (Models)
+
+// Bảng tài khoản Admin/Giám thị
+model AdminUser {
+  id           Int    @id @default(autoincrement())
+  username     String @unique // Tên đăng nhập là duy nhất
+  passwordHash String // Sẽ lưu mật khẩu đã băm (hash)
+}
+
+// Bảng Bộ đề thi
+model Quiz {
+  id        Int        @id @default(autoincrement())
+  title     String // Tên bộ đề, ví dụ: "Đề thi Lập trình mạng cuối kỳ"
+  subject   String // Môn học
+
+  // Quan hệ: Một Bộ đề (Quiz) có NHIỀU Câu hỏi (Question)
+  questions Question[]
+
+  // Quan hệ: Một Bộ đề (Quiz) có NHIỀU Kết quả (ExamResult)
+  results   ExamResult[]
+}
+
+// Bảng Câu hỏi
+model Question {
+  id                 Int    @id @default(autoincrement())
+  questionText       String // Nội dung câu hỏi
+  options            Json   // Lưu các lựa chọn [A, B, C, D] dưới dạng JSON
+  correctAnswerIndex Int    // Ví dụ: 0 (là đáp án A), 1 (là B),...
+
+  // Quan hệ: Mỗi câu hỏi thuộc về MỘT Bộ đề (Quiz)
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int  // Khóa ngoại trỏ đến Quiz.id
+}
+
+// Bảng Kết quả thi
+model ExamResult {
+  id                 Int      @id @default(autoincrement())
+  studentMachineName String   // Tên máy của học viên
+  score              Float    // Điểm số
+  submittedAt        DateTime @default(now()) // Giờ nộp bài (tự động)
+
+  // Quan hệ: Mỗi kết quả thuộc về MỘT Bộ đề (Quiz)
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int  // Khóa ngoại trỏ đến Quiz.id
+}

@@ -71,7 +71,7 @@ form select {
   box-sizing: border-box; /* Quan trọng */
 }
 
-form button, .normalButton {
+form button, .btn-normal {
   background-color: #007bff;
   color: white;
   padding: 10px 15px;
@@ -81,21 +81,36 @@ form button, .normalButton {
   font-size: 16px;
 }
 
-form button:hover, .normalButton:hover {
+form button:hover, .btn-normal:hover {
   background-color: #0056b3;
 }
 
-.delete{
-  background-color: #ea0000 ; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
+.btn-edit {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #ffc107; /* Màu vàng */
+  color: #212529;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  text-decoration: none;
+  font-size: 14px;
 }
-.delete:hover{
-  background-color: #ac0909;
+.btn-edit:hover {
+  background-color: #e0a800;
+  color: #212529;
+}
+
+.btn-delete {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #dc3545; /* Màu đỏ */
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-delete:hover {
+  background-color: #c82333;
 }
 
 /* --- Links --- */

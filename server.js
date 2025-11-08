@@ -35,7 +35,7 @@ app.use(session({
   saveUninitialized: false, // Chỉ lưu session khi đã đăng nhập
   cookie: {
     secure: false, // Để 'false' khi test ở localhost (HTTP)
-    maxAge: 1000 * 60 * 60 * 24 * 30// 1 ngày
+    maxAge: 1000 * 60 * 60 * 24// 1 ngày
   }
 }));
 

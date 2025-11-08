@@ -47,7 +47,12 @@
           <td><%= quiz.subject %></td>
           <td><%= quiz._count.questions %></td>
           <td>
-            <a href="/admin/quizzes/<%= quiz.id %>">Thêm/Xem Câu hỏi</a>
+            <a href="/admin/quizzes/<%= quiz.id %>">
+              <button type="button" class="normal">Thêm/Xem Câu hỏi</button>
+            </a>
+            <form action="/admin/quizzes/<%= quiz.id %>/delete" method="post">
+              <button type="submit" class="delete" onclick="return confirm('Bạn có chắc chắn xóa?')">Xóa</button>
+            </form>
           </td>
         </tr>
       <% }) %>

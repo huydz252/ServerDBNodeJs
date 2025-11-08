@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-// Đăng ký
+// Đăng ký  
 router.get('/register', showRegisterPage);
 router.post('/register', handleRegister);
 

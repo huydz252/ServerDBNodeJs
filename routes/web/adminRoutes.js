@@ -3,6 +3,7 @@ import {
   //quiz
   showQuizManagementPage,
   createQuizFromWeb,
+  deleteQuizFromWeb
 } from '../../controllers/web/quizWebController.js'; 
   
 import {
@@ -23,6 +24,9 @@ router.get('/quizzes', showQuizManagementPage);
 // POST /admin/quizzes - Xử lý tạo mới
 router.post('/quizzes', createQuizFromWeb);
 
+// Xóa Quiz
+router.post('/quizzes/:id/delete', deleteQuizFromWeb);
+
 //show chi tiết câu hỏi
 router.get('/quizzes/:id', showQuizDetailPage);
 
@@ -34,6 +38,6 @@ router.get('/questions/:id/edit', showEditQuestionPage);
 router.post('/questions/:id/edit', handleUpdateQuestion);
 
 //xóa câu hỏi
-router.delete('/questions/:id', handleDeleteQuestion);
+router.post('/questions/:id/delete', handleDeleteQuestion);
 
 export default router;

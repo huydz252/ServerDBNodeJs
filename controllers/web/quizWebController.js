@@ -47,6 +47,19 @@ const createQuizFromWeb = async (req, res) => {
   }
 };
 
+const deleteQuizFromWeb = async (req, res) => {
+  try {
+    const quizId = parseInt(req.params.id);
+    const deleteQuiz = await prisma.quiz.delete({
+      where : {id: quizId},
+    })
+    res.redirect('/admin/quizzes');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Lỗi khi xóa bộ đề!');
+  }
+};
+
 export  {
-        showQuizManagementPage, createQuizFromWeb
+    showQuizManagementPage, createQuizFromWeb, deleteQuizFromWeb
 }

@@ -4,7 +4,7 @@ import {
   getAllQuizzes,
   getQuizById,
   createQuiz,
-} from '../../controllers/quizController.js';
+} from '../../controllers/api/quizController.js';
 
 const router = express.Router();
 

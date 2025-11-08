@@ -1,9 +1,9 @@
-// File: controllers/quizWebController.js
+// File: controllers/quizWebController.js : Chỉ dùng cho quản lý data có giao diện (web ejs)
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Hiển thị trang quản lý (GET)
-export const showQuizManagementPage = async (req, res) => {
+const showQuizManagementPage = async (req, res) => {
   try {
     // 1. Lấy TẤT CẢ bộ đề từ CSDL
     const quizzes = await prisma.quiz.findMany({
@@ -26,7 +26,7 @@ export const showQuizManagementPage = async (req, res) => {
 };
 
 // Xử lý việc tạo bộ đề mới (POST)
-export const createQuizFromWeb = async (req, res) => {
+const createQuizFromWeb = async (req, res) => {
   try {
     // 1. Lấy dữ liệu từ form (req.body)
     const { title, subject } = req.body;
@@ -46,3 +46,7 @@ export const createQuizFromWeb = async (req, res) => {
     res.status(500).send('Lỗi khi tạo bộ đề');
   }
 };
+
+export  {
+        showQuizManagementPage, createQuizFromWeb
+}

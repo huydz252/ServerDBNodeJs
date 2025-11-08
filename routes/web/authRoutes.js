@@ -6,7 +6,7 @@ import {
   showLoginPage,
   handleLogin,
   handleLogout
-} from '../../controllers/authWebController.js';
+} from '../../controllers/web/authWebController.js';
 
 const router = express.Router();
 

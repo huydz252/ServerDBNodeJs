@@ -1,4 +1,4 @@
-// File: controllers/quizController.js
+// File: controllers/quizController.js : Controller API: ko render,redirect EJS! chỉ dùng cho Java(CLientManager, Client)
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 

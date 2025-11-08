@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    /* 
+      CSS này chỉ riêng cho trang này, 
+       giữ ở đây hoặc chuyển vào style.css 
+    */
+    .choices label {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    .choices input[type="radio"] {
+      margin-right: 5px;
+    }
+    .question-options li.correct-answer {
+        font-weight: bold;
+        color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <a href="/auth/logout" class="logout-link">Đăng xuất</a>
+  <a href="/admin/quizzes">&larr; Quay lại danh sách</a>
+  
+  <h1>Quản lý câu hỏi cho: <%= quiz.title %></h1>
+  <p>(Môn học: <%= quiz.subject %>)</p>
+
+  <hr>
+
+  <h2>Thêm câu hỏi mới</h2>
+  <form action="/admin/quizzes/<%= quiz.id %>/questions" method="POST">
+    <div>
+      <label for="questionText">Nội dung câu hỏi:</label>
+      <textarea id="questionText" name="questionText" rows="3" required></textarea>
+    </div>
+    
+    <div>
+      <label for="option1">A:</label>
+      <input type="text" id="option1" name="option1" required>
+    </div>
+    <div>
+      <label for="option2">B:</label>
+      <input type="text" id="option2" name="option2" required>
+    </div>
+    <div>
+      <label for="option3">C:</label>
+      <input type="text" id="option3" name="option3" required>
+    </div>
+    <div>
+      <label for="option4">D:</label>
+      <input type="text" id="option4" name="option4" required>
+    </div>
+
+    <h4>Đáp án đúng:</h4>
+    <div class="choices">
+      <input type="radio" id="correctA" name="correctAnswerIndex" value="0" checked>
+      <label for="correctA">A</label>
+      
+      <input type="radio" id="correctB" name="correctAnswerIndex" value="1">
+      <label for="correctB">B</label>
+      
+      <input type="radio" id="correctC" name="correctAnswerIndex" value="2">
+      <label for="correctC">C</label>
+
+      <input type="radio" id="correctD" name="correctAnswerIndex" value="3">
+      <label for="correctD">D</label>
+    </div>
+    
+    <button type="submit" style="margin-top: 10px;">Thêm câu hỏi</button>
+  </form>
+
+  <hr>
+
+  <h2>Danh sách câu hỏi đã có (<%= quiz.questions.length %>)</h2>
+  <table> 
+    <thead>
+      <tr>
+        <th style="width: 50px;">ID</th>
+        <th>Nội dung câu hỏi</th>
+        <th>Các lựa chọn</th>
+        <th>Đáp án đúng (Index)</th>
+        <th>Hành Động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% quiz.questions.forEach(q => { %>
+        <tr>
+          <td><%= q.id %></td>
+          <td><%= q.questionText %></td>
+          <td>
+            <ul class="question-options">
+              <% q.options.forEach((opt, index) => { %>
+                <li class="<%= (index === q.correctAnswerIndex) ? 'correct-answer' : '' %>">
+                  <%= opt %>
+                </li>
+              <% }) %>
+            </ul>
+          </td>
+          <td><%= q.correctAnswerIndex %></td>
+          <td>
+            
+              <a href="/admin/questions/<%= q.id %>/edit">
+                <button class="normalButton">Sửa</button>
+              </a>
+            <form action="/admin/questions/<%= q.id %>/delete" method="POST" >
+              <button type="submit" class="delete" onclick="return confirm('Bạn có chắc chắn muốn xóa câu hỏi này?');">
+                Xóa 
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+
+      <% if (quiz.questions.length === 0) { %>
+        <tr>
+          <td colspan="4" style="text-align: center;">Chưa có câu hỏi nào.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+</body>
+</html>

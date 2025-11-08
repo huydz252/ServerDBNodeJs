@@ -5,10 +5,12 @@ import path from 'path';
 import session from 'express-session';
 
 // Import router
+import { requireLogin } from './middleware/authMiddleware.js';
 import quizApiRoutes from './routes/api/quizRoutes.js';
 import questionApiRoutes from './routes/api/questionRoutes.js';
 import webAdminRoutes from './routes/web/adminRoutes.js';
-import webAuthRoutes from './routes/web/authRoutes.js'; // <-- THÊM
+import webAuthRoutes from './routes/web/authRoutes.js'; 
+
 
 // 2. Khởi tạo
 const app = express();
@@ -41,7 +43,7 @@ app.use(session({
 // ---- API ROUTES (trả về JSON) ----
 app.use('/api/quizzes', quizApiRoutes);
 app.use('/api/questions', questionApiRoutes);
-app.use('/admin', webAdminRoutes);
+app.use('/admin', requireLogin, webAdminRoutes);
 app.use('/auth', webAuthRoutes);
 app.get('/', (req, res) => {
   res.redirect('/auth/login'); 

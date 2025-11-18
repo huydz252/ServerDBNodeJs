@@ -102,12 +102,10 @@ const handleDeleteQuestion = async (req, res) => {
   try {
     const questionId = parseInt(req.params.id);
 
-    // 1. Xóa câu hỏi khỏi CSDL
     const deletedQuestion = await prisma.question.delete({
       where: { id: questionId },
     });
 
-    // 2. Chuyển hướng người dùng trở lại trang chi tiết của bộ đề
     res.redirect(`/admin/quizzes/${deletedQuestion.quizId}`);
   } catch (error) {
     console.error(error);

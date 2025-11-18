@@ -5,10 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+      body{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
 </head>
 <body>
     <h1>Đăng nhập</h1>
-<form action="/auth/login" method="POST">
+<form action="/auth/login" method="POST" class="login">
   <div><label>Username:</label><input name="username" required></div>
   <div><label>Password:</label><input type="password" name="password" required></div>
   <button type="submit">Đăng nhập</button>

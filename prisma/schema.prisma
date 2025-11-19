@@ -25,8 +25,9 @@ model AdminUser {
 // Bảng Bộ đề thi
 model Quiz {
   id        Int        @id @default(autoincrement())
-  title     String // Tên bộ đề, ví dụ: "Đề thi Lập trình mạng cuối kỳ"
-  subject   String // Môn học
+  title     String     
+  subject   String      
+  timeLimit Int        @default(45) //thời gian thi cho bộ đề
 
   // Quan hệ: Một Bộ đề (Quiz) có NHIỀU Câu hỏi (Question)
   questions Question[]
@@ -53,6 +54,8 @@ model ExamResult {
   studentMachineName String   // Tên máy của học viên
   score              Float    // Điểm số
   submittedAt        DateTime @default(now()) // Giờ nộp bài (tự động)
+
+  className          String
 
   // Quan hệ: Mỗi kết quả thuộc về MỘT Bộ đề (Quiz)
   quiz   Quiz @relation(fields: [quizId], references: [id])

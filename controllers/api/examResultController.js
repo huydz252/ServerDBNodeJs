@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 // Body: { quizId, studentMachineName, score }
 export const createExamResult = async (req, res) => {
   try {
-    const { quizId, studentMachineName, score } = req.body;
+    const { quizId, studentMachineName, score, className } = req.body;
 
-    if (quizId == null || studentMachineName == null || score == null) {
+    if (quizId == null || studentMachineName == null || score == null || className == null) {
       return res.status(400).json({ error: 'Thiếu dữ liệu' });
     }
 
@@ -16,6 +16,7 @@ export const createExamResult = async (req, res) => {
         quizId: parseInt(quizId),
         studentMachineName: studentMachineName.toString(),
         score: parseFloat(score),
+        className : className.toString()
       },
     });
     res.status(201).json(newResult);

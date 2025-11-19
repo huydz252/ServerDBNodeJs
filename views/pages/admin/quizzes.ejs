@@ -24,6 +24,10 @@
       <label for="subject">Môn học:</label>
       <input type="text" id="subject" name="subject" required>
     </div>
+    <div>
+      <label for="timeLimit">Thời gian (phút):</label>
+      <input type="number" id="timeLimit" name="timeLimit" value="45" min="1" required>
+    </div>
     <button type="submit">Tạo mới</button>
   </form>
 
@@ -36,6 +40,7 @@
         <th>Tên bộ đề</th>
         <th>Môn học</th>
         <th>Số câu hỏi</th>
+        <th>Thời gian</th>
         <th>Hành động</th>
       </tr>
     </thead>
@@ -46,6 +51,7 @@
           <td><%= quiz.title %></td>
           <td><%= quiz.subject %></td>
           <td><%= quiz._count.questions %></td>
+          <td><%= quiz.timeLimit %></td>
           <td>
             <a href="/admin/quizzes/<%= quiz.id %>">
               <button type="button" class="btn-normal">Thêm/Xem Câu hỏi</button>

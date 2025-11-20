@@ -9,6 +9,7 @@ import examResultApiRoutes from './routes/api/examResultRoutes.js';
 import questionApiRoutes from './routes/api/questionRoutes.js';
 import webAdminRoutes from './routes/web/adminRoutes.js';
 import webAuthRoutes from './routes/web/authRoutes.js'; 
+import loginStudent from './routes/api/studentRoutes.js';
 
 
 const app = express();
@@ -35,7 +36,7 @@ app.use(session({
   }
 }));
 
-
+app.use('/api/auth/student-login', loginStudent);
 app.use('/api/quizzes', quizApiRoutes);
 app.use('/api/questions', questionApiRoutes);
 app.use('/api/results', examResultApiRoutes);

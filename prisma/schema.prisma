@@ -51,13 +51,28 @@ model Question {
 // Bảng Kết quả thi
 model ExamResult {
   id                 Int      @id @default(autoincrement())
-  studentMachineName String   // Tên máy của học viên
   score              Float    // Điểm số
   submittedAt        DateTime @default(now()) // Giờ nộp bài (tự động)
-
   className          String
+  studentMachineName String
+  studentId   Int?     // Khóa ngoại (lưu id của student (ko phải mã sv))
+  fullName    String
+  studentCode  String
+  //quan hệ
+  student     Student? @relation(fields: [studentId], references: [id])
 
   // Quan hệ: Mỗi kết quả thuộc về MỘT Bộ đề (Quiz)
   quiz   Quiz @relation(fields: [quizId], references: [id])
   quizId Int  // Khóa ngoại trỏ đến Quiz.id
+
+  
+}
+
+// tài khoản học sinh
+model Student {
+  id          Int      @id @default(autoincrement())
+  studentCode String   @unique // Mã SV (đóng vai trò username/password)
+  fullName    String   // Họ và tên
+  classParams String?  // Lớp hành chính (ví dụ: 12A1) - tùy chọn
+  examResults ExamResult[] // Quan hệ 1-n: Một SV có nhiều kết quả thi
 }

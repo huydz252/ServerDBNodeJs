@@ -5,4 +5,10 @@ node_modules
 /generated/prisma
 
 package-lock.json
-package.json
+
+*.db
+*.sqlite
+*.sqlite-journal
+prisma/*.db
+prisma/*.sqlite
+

@@ -32,8 +32,31 @@ export const getQuizById = async (req, res) => {
     if (!quiz) {
       return res.status(404).json({ error: 'Không tìm thấy bộ đề' });
     }
-    res.json(quiz);
+
+    // 1. Sửa từng câu hỏi: Giữ lại dữ liệu cũ (...q) và chỉ ghi đè options
+    const questionsFixed = quiz.questions.map(q => {
+      let parsedOptions = [];
+      try {
+        parsedOptions = JSON.parse(q.options); 
+      } catch (e) {
+        parsedOptions = []; 
+      }
+
+      return {
+        ...q,                  // <--- QUAN TRỌNG: Giữ lại id, questionText, correctAnswerIndex...
+        options: parsedOptions // Ghi đè options (String -> Array)
+      };
+    });
+
+    // 2. Tạo phản hồi: Giữ lại thông tin Quiz (...quiz) và thay danh sách câu hỏi mới
+    const quizResponse = {
+      ...quiz,                // <--- Giữ lại title, subject, timeLimit...
+      questions: questionsFixed 
+    };
+
+    res.json(quizResponse);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Lỗi server' });
   }
 };
